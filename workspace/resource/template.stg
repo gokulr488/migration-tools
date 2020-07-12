@@ -1,0 +1,54 @@
+viewsAndTablesTrg(tableName,viewName,columnName,dataType,linkingTableName,linkingTableColName) ::=<<
+
+/****************** Table : <tableName>    View : <viewName> ******************/
+
+DROP VIEW IF EXISTS <viewName>;
+
+DROP TABLE IF EXISTS <tableName>;
+
+
+CREATE TABLE <tableName> (
+	<columnName> <dataType>);
+    
+CREATE VIEW <viewName> AS
+SELECT *
+FROM <linkingTableName>
+WHERE <linkingTableName>.<linkingTableColName> NOT IN(SELECT <tableName>.<columnName> FROM <tableName>);
+
+/*_________________________________________________END____________________________________________________________*/ 
+
+>>
+
+
+
+viewsAndTablesSrc(tableName,viewName,columnName,dataType,linkingTableName,linkingTableColName) ::=<<
+
+/****************** Table : <tableName>_mgr    View : <viewName>_mgr ******************/
+
+DROP VIEW IF EXISTS <viewName>_mgr;
+
+DROP TABLE IF EXISTS <tableName>_mgr;
+
+
+CREATE TABLE <tableName>_mgr (
+	<columnName> <dataType>);
+    
+CREATE VIEW <viewName>_mgr AS
+SELECT *
+FROM <linkingTableName>
+WHERE <linkingTableName>.<linkingTableColName> NOT IN(SELECT <tableName>_mgr.<columnName> FROM <tableName>_mgr);
+
+/*_________________________________________________END____________________________________________________________*/ 
+
+>>
+metaData(columns,table) ::=<<
+SELECT <columns> FROM <table> LIMIT 1;
+>>
+
+getData(columns,table,limit) ::=<<
+SELECT <columns> FROM <table> LIMIT <limit> OFFSET 
+>>
+
+insertQuery(columns,table,questionMarks) ::=<<
+INSERT INTO <table> (<columns>) VALUES (<questionMarks>)
+>>

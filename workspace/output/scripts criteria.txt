@@ -1,0 +1,50 @@
+1 mysql equivalent tables from postgres
+  	tables appended with db name (for t_mtr_item  ->  sts_t_mtr_item)
+
+2 views and track tables to be created on postgres
+	tables appended with  "track and view" keywords   (for t_mtr_item  -> view_t_mtr_item_mgr  ->  track_t_mtr_item_mgr)
+
+3 views and track tables to be created on staging mysql
+	tables appended with  "track and view" keywords   (for sts_t_mtr_item  -> view_sts_t_mtr_item  ->  track_sts_t_mtr_item)
+
+STS order for creation 
+
+t_mtr_distributor
+t_mtr_item
+t_mtr_item_category
+t_mtr_territory_type
+t_mtr_territory
+t_mtr_warehouse
+t_mtr_item_extra
+t_mtr_item_group
+t_mtr_item_package
+t_mtr_item_paket
+t_mtr_user_group
+t_mtr_user
+t_mtr_handset
+t_grid_outlet
+t_mtr_activation
+t_mtr_distributor_type
+t_mtr_outlet
+t_mtr_request_change_mdn
+t_mtr_sell_event
+t_trx_sales_order
+
+
+SRIS order for creation
+
+t_mtr_client
+t_mtr_item
+t_mtr_item_blacklist
+t_mtr_item_detail_discount
+t_mtr_region
+t_mtr_cluster
+t_mtr_province
+t_mtr_partner
+t_mtr_item_dispute
+t_mtr_user_group
+t_mtr_user
+t_mtr_item_dispute_argument
+t_mtr_item_fsp_fm
+t_mtr_item_group
+t_mtr_item_mapping
