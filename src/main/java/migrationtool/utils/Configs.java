@@ -34,6 +34,7 @@ public class Configs {
 	public static String lookUpColumn;
 	public static String lookUpTable2;
 	public static String lookUpColumn2;
+	public static String orderByColumn;
 
 	static FileInputStream fileInputStream;
 
@@ -70,6 +71,7 @@ public class Configs {
 			tragetTable = prop.getProperty("tragetTable");
 			outputBatchSize = Long.valueOf(prop.getProperty("outputBatchSize"));
 			outputColumns = prop.getProperty("outputColumns");
+			orderByColumn = prop.getProperty("orderByColumn");
 
 			outputPath = prop.getProperty("outputPath");
 

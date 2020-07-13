@@ -45,8 +45,8 @@ metaData(columns,table) ::=<<
 SELECT <columns> FROM <table> LIMIT 1;
 >>
 
-getData(columns,table,limit) ::=<<
-SELECT <columns> FROM <table> LIMIT <limit> OFFSET 
+getData(columns,table,limit,orderBy) ::=<<
+SELECT <columns> FROM <table> ORDER BY <orderBy> LIMIT <limit> OFFSET 
 >>
 
 insertQuery(columns,table,questionMarks) ::=<<

@@ -28,7 +28,7 @@ public class DbDataCollector implements Runnable {
 		try {
 			getMetaData();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 
@@ -43,13 +43,13 @@ public class DbDataCollector implements Runnable {
 			dataLimit = MetaData.rowCount;
 		}
 		System.out.println("Fetching data from source started at :" + System.currentTimeMillis());
-		while (offset <= (dataLimit - Configs.batchSize)) {
+		while (offset <= (dataLimit)) {
 			try {
 				dataQueue.put(getNextBatch(offset));
 				// System.gc();
 
 			} catch (SQLException | InterruptedException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 			offset = offset + Configs.batchSize;
@@ -86,12 +86,15 @@ public class DbDataCollector implements Runnable {
 			MetaData.columns.add(rsmd.getColumnName(i));
 			// cols = cols + rsmd.getColumnName(i) + AppConfigs.csvDelimiter;
 		}
+		
+		//TODO get primary key for order by clause from metadata
 
 		// Pre building select query
 		template = GenUtils.getTemplate("getData");
 		template.add("columns", Configs.columns);
 		template.add("table", Configs.table);
 		template.add("limit", Configs.batchSize);
+		template.add("orderBy", Configs.orderByColumn);
 		// template.add("primaryKey", Configs.orderByColumn);
 		selectQuery = template.render();
 

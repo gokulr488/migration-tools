@@ -1,19 +1,16 @@
 package migrationtool.customquery;
 
-import java.io.ByteArrayInputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import migrationtool.datacollector.MetaData;
 import migrationtool.dbconnection.ConnectionManager;
-import migrationtool.lookup.LookUpManager;
 import migrationtool.utils.Configs;
 import migrationtool.utils.FileWriteUtils;
 
@@ -119,33 +116,43 @@ public class CustomQuery {
 
 		System.out.println("Executing ... " + sql);
 
-		if (sql.contains("SELECT") || sql.contains("select")) {
+//		if (sql.contains("SELECT") || sql.contains("select")) {
+//			ResultSet res = selectStatement.executeQuery(sql);
+//			System.out.println("Executed " + sql);
+//			return res;
+//		} else if (sql.contains("INSERT") || sql.contains("insert")) {
+//			selectStatement.executeUpdate(sql);
+//			System.out.println("Executed " + sql);
+//			return null;
+//		} else if (sql.contains("LOAD") || sql.contains("load")) {
+//			Statement loadStmt = srcConn.createStatement();
+//			// loadStmt.setLocalInfileInputStream();
+//			loadStmt.execute(sql);
+//			System.out.println("Executed " + sql);
+//			return null;
+//		}
+
+		try {
 			ResultSet res = selectStatement.executeQuery(sql);
 			System.out.println("Executed " + sql);
 			return res;
-		} else if (sql.contains("INSERT") || sql.contains("insert")) {
-			selectStatement.executeUpdate(sql);
-			System.out.println("Executed " + sql);
-			return null;
-		} else if(sql.contains("LOAD") || sql.contains("load")){
-			Statement loadStmt = srcConn.createStatement();
-			loadStmt.setLocalInfileInputStream();
-			loadStmt.execute(sql);
-			System.out.println("Executed " + sql);
-			return null;
-		}
+		} catch (Exception e) {
+			try {
+				selectStatement.executeUpdate(sql);
+				System.out.println("Executed " + sql);
+				return null;
+			} catch (Exception e1) {
+				try {
+					selectStatement.execute(sql);
+					System.out.println("Executed " + sql);
+				} catch (SQLException e2) {
+					System.out.println("Failed to execute : " + sql);
+					e2.printStackTrace();
+				}
 
-		/*
-		 * try { ResultSet res = selectStatement.executeQuery(sql);
-		 * System.out.println("Executed " + sql); return res; } catch (Exception e) {
-		 * try { selectStatement.executeUpdate(sql); System.out.println("Executed " +
-		 * sql); return null; } catch (Exception e1) { try {
-		 * selectStatement.execute(sql); System.out.println("Executed " + sql); } catch
-		 * (SQLException e2) { System.out.println("Failed to execute : " + sql);
-		 * e2.printStackTrace(); }
-		 * 
-		 * return null; } }
-		 */
+				return null;
+			}
+		}
 
 	}
 
