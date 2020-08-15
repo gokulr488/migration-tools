@@ -4,3 +4,7 @@
 # Ignore Gradle build output directory
 build
 bin/
+<<<<<<< HEAD
+=======
+release/
+>>>>>>> 8f75024e6803a9c5f9984244b8672d10208c41c7
